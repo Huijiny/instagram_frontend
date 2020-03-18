@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 
 export default defaultValue => {
     const [value, setValue] = useState(defaultValue);
@@ -10,5 +10,5 @@ export default defaultValue => {
         setValue(value);
     };
 
-    return {value, onChange};
+    return { value, onChange };
 };
