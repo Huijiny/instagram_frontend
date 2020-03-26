@@ -1,6 +1,7 @@
 import React from 'react'
 import { gql } from 'apollo-boost'
 import styled from 'styled-components'
+import Helmet from 'react-helmet';
 import { useQuery } from 'react-apollo-hooks';
 import Loader from '../Components/Loader';
 import data from '../Dummy/seeFeed';
@@ -50,6 +51,9 @@ export default () => {
     let loading = false;
 return (
     <Wrapper>
+        <Helmet>
+            <title> Feed | Prismagram</title>
+        </Helmet>
         { loading && <Loader/> }
         {!loading &&
         data &&
@@ -64,6 +68,8 @@ return (
             isLiked = {post.isLiked}
             comments = {post.comments}
             createdAt = {post.createdAt}
+            location = {post.location}
+            caption = {post.caption}
             />
         ))}
     </Wrapper>
