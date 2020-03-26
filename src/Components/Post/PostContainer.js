@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import useInput from '../../Hooks/useInput'
 import PostPresenter from './PostPresenter.js'
@@ -10,12 +10,46 @@ const PostContainer = ({
     likeCount,
     isLiked,
     comments,
-    createdAt
+    createdAt,
+    caption,
+    location
 }) => {
-    console.log(id, user, files, likeCount, isLiked, comments, createdAt);
+    const [isLikedS, setIsLiked] = useState(isLiked);
+    const [likeCountS, setLikeCount] = useState(likeCount);
+    const [currentItem, setCurrentItem] = useState(0);
+    const comment = useInput("");
+
+    const slide = () => {
+        const totalFiles = files.length;
+        if(currentItem === totalFiles -1){
+            setTimeout(() => setCurrentItem(0), 3000);
+        }else{
+            setTimeout(() => setCurrentItem(currentItem+1), 3000);
+        }
+
+    }
     
-    return <PostPresenter/>;
-}
+    useEffect(() => {
+        slide();
+    },[currentItem]);
+    
+    return (
+        <PostPresenter
+            user={user}
+            files={files}
+            likeCount={likeCountS}
+            isLiked={isLikedS}
+            location={location}
+            caption={caption}
+            createdAt={createdAt}
+            comments={comments}
+            newComment={comment}
+            setIsLiked={setIsLiked}
+            setLikeCount={setLikeCount}
+            currentItem={currentItem}
+        />
+    );
+};
 
 PostContainer.propTypes = {
     id: PropTypes.string.isRequired,
@@ -42,7 +76,9 @@ PostContainer.propTypes = {
             }).isRequired,
         })
     ).isRequired,
-    createdAt: PropTypes.string
+    caption:PropTypes.string.isRequired,
+    location:PropTypes.string,
+    createdAt: PropTypes.string.isRequired
 };
 
 export default PostContainer;
