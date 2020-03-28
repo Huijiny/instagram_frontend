@@ -3,7 +3,7 @@ import styled from "styled-components";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import TextareaAutosize from 'react-autosize-textarea';
-import { HeartFull, HeartEmpty, Comment } from "../Icons";
+import { HeartFull, HeartEmpty, Comment as CommentIcon} from "../Icons";
 
 const Post = styled.div`
   ${props => props.theme.whiteBox};
@@ -66,7 +66,17 @@ const Buttons = styled.div`
   margin-bottom: 10px;
 `;
 
-const TextArea = styled(TextareaAutosize)`
+const Comments = styled.ul`
+  margin-top: 10px;
+`;
+
+const Comment = styled.li`
+  margin-bottom: 7px;
+  span {
+    margin-right: 5px;
+  }
+`;
+const Textarea = styled(TextareaAutosize)`
   width:100%;
   border: none;
   &:focus{
@@ -96,7 +106,9 @@ export default ({
   createdAt,
   newComment,
   currentItem,
-  toggleLike
+  toggleLike,
+  onKeyPress,
+  comments
 }) => (
   <Post>
     <Header>
@@ -107,19 +119,23 @@ export default ({
       </UserColumn>
     </Header>
     <Files>
-        
       {files && files.map((file, index) => <File id={file.id} src={file.url} showing={index === currentItem} />)}
     </Files>
     <Meta>
       <Buttons>
         <Button onClick={toggleLike}>{isLiked ? <HeartFull /> : <HeartEmpty />}</Button>
         <Button>
-          <Comment />
+          <CommentIcon />
         </Button>
       </Buttons>
       <FatText text={likeCount === 1 ? "1 like" : `${likeCount} likes`} />
+        {comments&& 
+        (<Comments>
+            {comments.map((comment)=>(
+            <Comment key={comment.id}><FatText text="user"/>{comment.text}</Comment>
+        ))}</Comments>)}
       <Timestamp>{createdAt}</Timestamp>
-      <TextArea placeholder="Add a comment" {...newComment}/>
+      <Textarea onKeyDown={onKeyPress} placeholder={"Add a comment..."} value={newComment.value} onChange={newComment.onChange} ></Textarea>
     </Meta>
   </Post>
 );

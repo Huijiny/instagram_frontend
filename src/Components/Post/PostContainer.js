@@ -45,7 +45,12 @@ const PostContainer = ({
             setIsLiked(true);
             setLikeCount(likeCountS + 1);
         }
+        
         //toggleLikeMutation();
+    }
+    
+    const onKeyPress = e => {
+        console.log(e);
     }
 
     return (
@@ -63,6 +68,7 @@ const PostContainer = ({
             setLikeCount={setLikeCount}
             currentItem={currentItem}
             toggleLike={toggleLike}
+            onKeyPress={onKeyPress}
         />
     );
 };

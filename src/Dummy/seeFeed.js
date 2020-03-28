@@ -26,7 +26,16 @@ const data = {
             ],
             likeCount: 2,
             isLiked: true,
-            comments:[],
+            comments:[
+                {
+                    id:"dasfjhwef",
+                    text:"I love this photo"
+                },
+                {
+                    id:"324234234",
+                    text:"맛있겠다 ㅋ"
+                }
+            ],
             createdAt:" 2019-03-11T08:11:09.127Z"
         }
     ]
