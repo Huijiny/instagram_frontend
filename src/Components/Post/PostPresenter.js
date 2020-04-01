@@ -108,8 +108,12 @@ export default ({
   currentItem,
   toggleLike,
   onKeyPress,
-  comments
-}) => (
+  comments,
+  selfComments
+}) => {
+    console.log('hi');
+    console.log(onKeyPress)
+    return (
   <Post>
     <Header>
       <Avatar size="sm" url={avatar} />
@@ -130,12 +134,19 @@ export default ({
       </Buttons>
       <FatText text={likeCount === 1 ? "1 like" : `${likeCount} likes`} />
         {comments&& 
-        (<Comments>
+          (<Comments>
             {comments.map((comment)=>(
             <Comment key={comment.id}><FatText text="user"/>{comment.text}</Comment>
-        ))}</Comments>)}
+            ))}
+            {selfComments.map((comment)=>(
+                <Comment key={comment.id}><FatText text="user"/>{comment.text}</Comment>
+            ))}
+          </Comments>)
+        }
+        
       <Timestamp>{createdAt}</Timestamp>
-      <Textarea onKeyDown={onKeyPress} placeholder={"Add a comment..."} value={newComment.value} onChange={newComment.onChange} ></Textarea>
+      <Textarea onKeyPress={onKeyPress} placeholder="Add a comment..." value={newComment.value} onChange={newComment.onChange} ></Textarea>
     </Meta>
   </Post>
-);
+    );
+};

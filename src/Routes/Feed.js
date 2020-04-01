@@ -49,6 +49,7 @@ export default () => {
     //const {data, loading} = useQuery(FEED_QUERY);
     console.log(data);
     let loading = false;
+    console.log('hi');
 return (
     <Wrapper>
         <Helmet>
