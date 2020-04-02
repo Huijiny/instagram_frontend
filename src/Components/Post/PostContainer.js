@@ -56,8 +56,6 @@ const PostContainer = ({
         console.log(e);
         if (which === 13) {
             e.preventDefault();
-            alert(e.target.value);
-            console.log("df");
             const temp = {
                 id:"123",
                 text:e.target.value
