@@ -51,6 +51,7 @@ const SearchPresenter =  ({
                                 isFollowing={user.isFollowing} 
                                 url={user.avatar} 
                                 isSelf={user.isSelf}
+                                id={user.id}
                             />
                         ))
                     )}
