@@ -5,6 +5,7 @@ import FatText from '../../Components/FatText';
 import UserCard from '../../Components/UserCard';
 import Loader from '../../Components/Loader';
 import Data from '../../Dummy/searchData';
+import SquarePost from '../../Components/SquarePost';
 
 const Wrapper = styled.div`
     height: 50vh;
@@ -14,10 +15,16 @@ const Section = styled.div`
   margin-bottom: 50px;
   display: grid;
   grid-gap: 25px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 160px);
   grid-template-rows: 160px;
   grid-auto-rows: 160px;
 `;
+
+const PostSection = styled(Section)`
+    grid-template-columns: repeat(4, 200px);
+    grid-template-rows: 200px;
+    grid-auto-rows: 200px;
+`
 
 const SearchPresenter =  ({
     loading,
@@ -37,7 +44,7 @@ const SearchPresenter =  ({
                 <Loader/>
             </Wrapper>
         );
-    }else if ( data && data.searchUser ) {
+    }else if ( data && data.searchUser && data.searchPosts) {
         return (
             <Wrapper>
                 <Section>
@@ -56,13 +63,21 @@ const SearchPresenter =  ({
                         ))
                     )}
                 </Section>
-                <Section>
+                <PostSection>
                     {data.searchPosts.length === 0 ? (
                         <FatText text="No Posts found"/>
                     ) : (
-                        data.searchPost.map(post => null)
+                        data.searchPosts.map(post => (
+                            <SquarePost
+                                likeCount={post.likeCount}
+                                commentCount={post.commentCount}
+                                files={post.files}
+                            />
+                            
+
+                        ))
                     )}
-                </Section>
+                </PostSection>
             </Wrapper>
         );
     }    
